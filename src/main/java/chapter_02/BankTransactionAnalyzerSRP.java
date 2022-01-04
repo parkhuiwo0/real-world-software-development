@@ -21,18 +21,30 @@ public class BankTransactionAnalyzerSRP {
     final List<String> lines = Files.readAllLines(path);
 
     final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
+    final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
 
-    System.out.println("The total for all transactions is " + calculateTotalAmount(bankTransactions));
-    System.out.println("Transactions in January " + selectInMonth(bankTransactions, Month.JANUARY));
+    collectSummary(bankStatementProcessor);
+
+//    System.out.println("The total for all transactions is " + calculateTotalAmount(bankTransactions));
+//    System.out.println("Transactions in January " + selectInMonth(bankTransactions, Month.JANUARY));
   }
 
-  private static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
-    return bankTransactions.stream().mapToDouble(BankTransaction::getAmount).sum();
+  private static void collectSummary(final BankStatementProcessor bankStatementProcessor) {
+    System.out.println("Total amount for all transactions : "
+        + bankStatementProcessor.calculateTotalAmount());
+    System.out.println("Total amount for transactions in January : "
+        + bankStatementProcessor.calculateTotalInMonth(Month.JANUARY));
+    System.out.println("Total salary received is : "
+        + bankStatementProcessor.calculateTotalForCategory("Salary"));
   }
 
-  private static List<BankTransaction> selectInMonth(final List<BankTransaction> bankTransactions, final Month month) {
-    return bankTransactions.stream()
-        .filter(bankStatement -> month.equals(bankStatement.getDate().getMonth()))
-        .collect(Collectors.toList());
-  }
+//  private static double calculateTotalAmount(final List<BankTransaction> bankTransactions) {
+//    return bankTransactions.stream().mapToDouble(BankTransaction::getAmount).sum();
+//  }
+//
+//  private static List<BankTransaction> selectInMonth(final List<BankTransaction> bankTransactions, final Month month) {
+//    return bankTransactions.stream()
+//        .filter(bankStatement -> month.equals(bankStatement.getDate().getMonth()))
+//        .collect(Collectors.toList());
+//  }
 }
