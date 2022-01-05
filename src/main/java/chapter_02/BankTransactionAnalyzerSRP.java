@@ -20,10 +20,10 @@ public class BankTransactionAnalyzerSRP {
     final Path path = Paths.get(RESOURCES + args[0]);
     final List<String> lines = Files.readAllLines(path);
 
-    final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
-    final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
+//    final List<BankTransaction> bankTransactions = bankStatementParser.parseLinesFromCSV(lines);
+//    final BankStatementProcessor bankStatementProcessor = new BankStatementProcessor(bankTransactions);
 
-    collectSummary(bankStatementProcessor);
+//    collectSummary(bankStatementProcessor);
 
 //    System.out.println("The total for all transactions is " + calculateTotalAmount(bankTransactions));
 //    System.out.println("Transactions in January " + selectInMonth(bankTransactions, Month.JANUARY));
